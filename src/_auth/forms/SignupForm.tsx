@@ -14,6 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Link } from "react-router-dom";
 
 const SignupForm = () => {
   // 1. Define your form.
@@ -30,17 +31,14 @@ const SignupForm = () => {
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof SignupValidation>) {
     // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    // ✅ This will be type-safe and validated.c
     console.log(values);
   }
 
   return (
     <Form {...form}>
-      <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg" alt="logo" />
-        <h1>Create a new account</h1>
-      </div>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <h1>Create a new account </h1>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-2/5 mt-4">
         <FormField
           control={form.control}
           name="username"
@@ -48,13 +46,15 @@ const SignupForm = () => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input type="text" className="" {...field} />
+                <Input type="text" className="shad-input" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="shad-button_primary">Submit</Button>
+        <Button type="submit" className="shad-button_primary">
+          Submit
+        </Button>
       </form>
     </Form>
   );
