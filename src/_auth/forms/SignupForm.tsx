@@ -60,7 +60,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="text" placeholder="John" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-rose-700"/>
               </FormItem>
             )}
           />
@@ -75,7 +75,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="text" placeholder="johndoe24" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-rose-700"/>
               </FormItem>
             )}
           />
@@ -94,7 +94,7 @@ const SignupForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-rose-700"/>
               </FormItem>
             )}
           />
@@ -109,7 +109,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="password" placeholder="••••••••" {...field} />
                  </FormControl>
-                <FormMessage />
+                <FormMessage className="text-rose-700"/>
               </FormItem>
             )}
           />
