@@ -3,26 +3,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
 import { SignupValidation } from "@/lib/validation";
-import { Button } from "@/components/ui/button";
 
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Link } from "react-router-dom";
+import Loader from "@/components/shared/Loader";
 
 const SignupForm = () => {
+  const isLoading = false;
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -42,15 +37,18 @@ const SignupForm = () => {
   }
 
   return (
-    <div className=" max-w-md w-full mx-auto rounded-2xl md:rounded-2xl p-4 md:p-8 shadow-input bg-black">
+    <div className=" max-w-md  w-10/12 md:w-full md:mx-auto rounded-2xl md:rounded-2xl p-4 md:p-8 shadow-input bg-black ">
       <Form {...form}>
         <h2 className="font-bold text-xl text-neutral-200">
           Welcome to Work Hive
         </h2>
-        <p className="text-md max-w-sm mt-1 text-neutral-300 mb-4">
-          Signup
+        <p className="text-md max-w-sm mt-1 text-neutral-300 mb-3 ">
+          Create a new account
         </p>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-4"
+        >
           <FormField
             control={form.control}
             name="name"
@@ -109,7 +107,7 @@ const SignupForm = () => {
                   <Label>Password</Label>
                 </FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder= "••••••••" {...field} />
+                  <Input type="text" placeholder="••••••••" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,35 +118,35 @@ const SignupForm = () => {
             className="bg-gradient-to-br relative group/btn from-zinc-900 to-zinc-900 block bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
           >
-            Sign up &rarr;
-            <BottomGradient />
+            {isLoading ? (
+              <div className="flex-center gap-5">
+                <Loader />
+              </div>
+            ) : (
+              <div>
+                Sign up &rarr;
+                <BottomGradient />
+              </div>
+            )}
           </button>
         </form>
       </Form>
+      <p className="text-small-regular text-light-2 text-center mt-4">
+        Alerady have an account?
+        <Link to="/sign-in" className="text-small-semibold text-primary-500 ml-2">
+          Sign In
+        </Link>
+      </p>
     </div>
   );
 };
 
 const BottomGradient = () => {
-  return (
+  return ( 
     <>
       <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
       <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
     </>
-  );
-};
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
   );
 };
 
