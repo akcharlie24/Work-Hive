@@ -35,12 +35,12 @@ const AuthLayout = () => {
         <Navigate to="/" />
       ) : (
         <>
-          <div className="h-screen w-full flex bg-neutral-950 antialiased overflow-scroll">
+          <div className="h-screen w-full flex bg-neutral-950 antialiased ">
             <Spotlight
-              className="-top-20 left-12 md:-left-5 md:-top-80 "
+              className="-top-20 left-20 md:-left-5 md:-top-80 "
               fill="white"
             />
-            <div className="h-screen w-full lg:w-2/3 rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased overflow-scroll">
+            <div className="h-screen w-full lg:w-2/3 rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
               <div className="max-w-2xl  p-4 mb-4">
                 <h1 className="relative text-3xl md:text-5xl lg:text-6xl  xl:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
                   Work Hive
