@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
+import { useToast } from "@/components/ui/use-toast";
+import { useCreateUserAccount , useSignInAccount} from "@/lib/react-query/queriesAndMutations";
 
 import {
   Form,
@@ -15,10 +17,14 @@ import {
 } from "@/components/ui/form";
 import { Link } from "react-router-dom";
 import Loader from "@/components/shared/Loader";
-import { createUserAccount } from "@/lib/appwrite/api";
+
 
 const SignupForm = () => {
-  const isLoading = false;
+  const { toast } = useToast();
+
+  const {mutateAsync:createUserAccount, isLoading:isCreatingUser} = useCreateUserAccount()
+  const {mutateAsync:signInAccount, isLoading : isSigningIn} = useSignInAccount(); 
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -33,7 +39,27 @@ const SignupForm = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     const newUser = await createUserAccount(values);
-    console.log(newUser);
+    if (!newUser) {
+      return toast({
+        title: "Sign Up Failed , Please try again",
+        description: "We are sorry for the inconvinience ",
+      });
+    }
+
+    const session = await signInAccount({
+      email : values.email,
+      password : values.password,
+    })
+
+    if(!session) {
+      return toast({
+        variant : 'destructive',
+        title: "Sign In Failed",
+        description : "Please Try Again"
+      })
+    }
+
+    
   }
 
   return (
@@ -60,7 +86,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="text" placeholder="John" {...field} />
                 </FormControl>
-                <FormMessage className="text-rose-700"/>
+                <FormMessage className="text-rose-700" />
               </FormItem>
             )}
           />
@@ -75,7 +101,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type="text" placeholder="johndoe24" {...field} />
                 </FormControl>
-                <FormMessage className="text-rose-700"/>
+                <FormMessage className="text-rose-700" />
               </FormItem>
             )}
           />
@@ -94,7 +120,7 @@ const SignupForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="text-rose-700"/>
+                <FormMessage className="text-rose-700" />
               </FormItem>
             )}
           />
@@ -108,8 +134,8 @@ const SignupForm = () => {
                 </FormLabel>
                 <FormControl>
                   <Input type="password" placeholder="••••••••" {...field} />
-                 </FormControl>
-                <FormMessage className="text-rose-700"/>
+                </FormControl>
+                <FormMessage className="text-rose-700" />
               </FormItem>
             )}
           />
@@ -118,7 +144,7 @@ const SignupForm = () => {
             className="bg-gradient-to-br relative group/btn from-zinc-900 to-zinc-900 block bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
           >
-            {isLoading ? (
+            {isCreatingUser ? (
               <div className="flex-center gap-5">
                 <Loader />
               </div>
@@ -133,7 +159,10 @@ const SignupForm = () => {
       </Form>
       <p className="text-small-regular text-light-2 text-center mt-4">
         Alerady have an account?
-        <Link to="/sign-in" className="text-small-semibold text-primary-500 ml-2">
+        <Link
+          to="/sign-in"
+          className="text-small-semibold text-primary-500 ml-2"
+        >
           Sign In
         </Link>
       </p>
@@ -142,7 +171,7 @@ const SignupForm = () => {
 };
 
 const BottomGradient = () => {
-  return ( 
+  return (
     <>
       <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
       <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
