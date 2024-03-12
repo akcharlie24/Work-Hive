@@ -5,7 +5,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
 import { useToast } from "@/components/ui/use-toast";
-import { useCreateUserAccount , useSignInAccount} from "@/lib/react-query/queriesAndMutations";
+import {
+  useCreateUserAccount,
+  useSignInAccount,
+} from "@/lib/react-query/queriesAndMutations";
 
 import {
   Form,
@@ -15,15 +18,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "@/components/shared/Loader";
-
+import { useUserContext } from "@/context/AuthContext";
 
 const SignupForm = () => {
   const { toast } = useToast();
 
-  const {mutateAsync:createUserAccount, isLoading:isCreatingUser} = useCreateUserAccount()
-  const {mutateAsync:signInAccount, isLoading : isSigningIn} = useSignInAccount(); 
+  const { mutateAsync: createUserAccount, isPending: isCreatingUser } =
+    useCreateUserAccount();
+  const { mutateAsync: signInAccount, isPending: isSigningIn } =
+    useSignInAccount();
+
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+
+  const navigate = useNavigate();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -42,24 +51,33 @@ const SignupForm = () => {
     if (!newUser) {
       return toast({
         title: "Sign Up Failed , Please try again",
-        description: "We are sorry for the inconvinience ",
+        description: "We are sorry ",
       });
     }
 
     const session = await signInAccount({
-      email : values.email,
-      password : values.password,
-    })
+      email: values.email,
+      password: values.password,
+    });
 
-    if(!session) {
+    if (!session) {
       return toast({
-        variant : 'destructive',
+        variant: "destructive",
         title: "Sign In Failed",
-        description : "Please Try Again"
-      })
+        description: "Please Try Again",
+      });
     }
 
-    
+    const isLoggedIn = await checkAuthUser();
+    if (isLoggedIn) {
+      form.reset();
+      navigate("/");
+    } else {
+      return toast({
+        title: "Sign Up Failed , Please Try Again",
+        description: "We are Sorry for the inconvinience",
+      });
+    }
   }
 
   return (
