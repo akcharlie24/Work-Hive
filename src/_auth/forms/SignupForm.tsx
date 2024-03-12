@@ -59,7 +59,7 @@ const SignupForm = () => {
       email: values.email,
       password: values.password,
     });
-
+    console.log(session);
     if (!session) {
       return toast({
         variant: "destructive",
