@@ -17,7 +17,7 @@ export async function createUserAccount(user: INewUser) {
 
     const avatarURL = avatars.getInitials(user.name);
 
-    console.log(avatarURL);
+
 
     const newUser = await saveUserToDB({
       accountId: newAccount.$id,
@@ -26,7 +26,7 @@ export async function createUserAccount(user: INewUser) {
       username: user.username,
       imageUrl: avatarURL,
     });
-    console.log(newUser);
+
     return newUser;
   } catch (error) {
     console.log(error);
@@ -63,7 +63,6 @@ export async function signInAccount(user: { email: string; password: string }) {
     );
     return session;
   } catch (error) {
-    console.log('session not created');
     console.log(error);
   }
 }
