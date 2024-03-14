@@ -58,7 +58,7 @@ const SigninForm = () => {
       navigate("/");
     } else {
       return toast({
-        title: "Sign Up Failed , Please Try Again",
+        title: "Sign In Failed , Please Try Again",
         description: "We are Sorry for the inconvinience",
       });
     }

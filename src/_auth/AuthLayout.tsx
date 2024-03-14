@@ -4,9 +4,10 @@ import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { testimonials } from "@/data/testimonials";
 import { Spotlight } from "@/components/ui/spotlight";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { useUserContext } from "@/context/AuthContext";
 
 const AuthLayout = () => {
-  const isAuthenticated = false;
+  const {isAuthenticated} = useUserContext();
   const words = [
     {
       text :'Dive',

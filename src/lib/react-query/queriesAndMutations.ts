@@ -1,8 +1,6 @@
-import {
-  useMutation
-} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { INewUser } from "@/types";
-import { createUserAccount, signInAccount } from "../appwrite/api";
+import { createUserAccount, signInAccount, signOutAccount } from "../appwrite/api";
 
 //tan stack query is used for data fetching and mutation with features like caching and infinite scroll.
 
@@ -16,5 +14,11 @@ export const useSignInAccount = () => {
   return useMutation({
     mutationFn: (user: { email: string; password: string }) =>
       signInAccount(user),
+  });
+};
+
+export const useSignOutAccount = () => {
+  return useMutation({
+    mutationFn: signOutAccount,  
   });
 };
