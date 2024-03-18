@@ -14,7 +14,7 @@ const Bottombar = () => {
             key={link.label}
             className={` ${
               isActive && "bg-primary-500 rounded-[10px]"
-            } flex-center flex-col gap-1 p-2 transition `}
+            } flex-center flex-col gap-1 p-2 transition`}
           >
             <img
               src={link.imgURL}
@@ -22,9 +22,9 @@ const Bottombar = () => {
               width={16}
               height={16}
               className={`${isActive && "invert-white"}`}
-            /> 
+            />
             <p className="tiny-medium text-light-2">{link.label}</p>
-          </Link>
+          </Link> 
         );
       })}
     </section>
