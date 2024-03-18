@@ -1,8 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { INewPost, INewUser } from "@/types";
 import {
   createPost,
   createUserAccount,
+  getRecentPosts,
   signInAccount,
   signOutAccount,
 } from "../appwrite/api";
@@ -34,9 +35,17 @@ export const useCreatePost = () => {
   return useMutation({
     mutationFn: (post: INewPost) => createPost(post),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      queryClient.invalidateQueries({ /* this will remove the stale data  */
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+        /* this is a good practice to save urself from typos while building large applications, you wont get typos here as the GET_RECENT_POSTS will complain if there is typo */
       });
     },
   });
+};
+
+export const useGetRecentPosts = () => {
+  return useQuery({
+    queryKey : [QUERY_KEYS.GET_RECENT_POSTS], /* this key helps removing the stale data */
+    queryFn : getRecentPosts,
+  })
 };

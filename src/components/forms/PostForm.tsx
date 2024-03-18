@@ -21,6 +21,7 @@ import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import Loader from "../shared/Loader";
 
 type PostFormProps = {
   post?: Models.Document;
@@ -144,7 +145,15 @@ const PostForm = ({ post }: PostFormProps) => {
             type="submit"
             className="shad-button_primary whitespace-nowrap"
           >
-            Submit
+            {isLoadingCreate ? (
+              <div className="flex-center gap-5">
+                <Loader />
+              </div>
+            ) : (
+              <div>
+                Submit
+              </div>
+            )}
           </Button>
         </div>
       </form>

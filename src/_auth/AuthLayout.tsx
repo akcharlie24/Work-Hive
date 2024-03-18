@@ -1,7 +1,7 @@
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Outlet, Navigate } from "react-router-dom";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
-import { testimonials } from "@/data/testimonials";
+import { additionalTestimonials, testimonials } from "@/data/testimonials";
 import { Spotlight } from "@/components/ui/spotlight";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { useUserContext } from "@/context/AuthContext";
@@ -69,7 +69,7 @@ const AuthLayout = () => {
               </div>
               <div className=" rounded-md flex flex-col antialiase justify-center items-center relative overflow-hidden">
                 <InfiniteMovingCards
-                  items={testimonials}
+                  items={additionalTestimonials}
                   direction="left"
                   speed="slow"
                 />
