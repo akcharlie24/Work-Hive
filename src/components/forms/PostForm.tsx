@@ -111,9 +111,10 @@ const PostForm = ({ post }: PostFormProps) => {
                   type="text"
                   className="shad-input"
                   placeholder="Where  Are You ? "
+                  {...field}
                 />
               </FormControl>
-              <FormMessage className="shad-form_message" {...field} />
+              <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
