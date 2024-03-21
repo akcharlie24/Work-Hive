@@ -75,12 +75,12 @@ const Explore = () => {
           <SearchResults
             isSearchFetching={isSearchFetching}
             searchedPosts={searchedPosts } 
-          />
+          />  
         ) : shouldShowPosts ? (
           <p className="text-light-4">End Of Posts</p>
         ) : (
           posts.pages.map((item, index) => (
-            <GridPostList key={`page-${index}`} posts={item.documents} />
+            <GridPostList key={`page-${index}`} posts={item?.documents} />
           ))
         )}
       </div>
