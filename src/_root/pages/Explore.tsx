@@ -21,6 +21,8 @@ const Explore = () => {
   const { data: searchedPosts, isFetching: isSearchFetching } =
     useSearchPosts(debouncedValue);
 
+  // TODO: comeback here to revisit how is inifite query working
+
   useEffect(() => {
     if (inView && !searchValue) fetchNextPage();
   }, [inView, searchValue]);
@@ -74,8 +76,8 @@ const Explore = () => {
         {shouldShowSearchResults ? (
           <SearchResults
             isSearchFetching={isSearchFetching}
-            searchedPosts={searchedPosts } 
-          />  
+            searchedPosts={searchedPosts}
+          />
         ) : shouldShowPosts ? (
           <p className="text-light-4">End Of Posts</p>
         ) : (
