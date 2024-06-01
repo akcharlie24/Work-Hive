@@ -59,6 +59,18 @@ Check out Work-Hive in action at:
 
 [https://work-hive-black.vercel.app/](https://work-hive-black.vercel.app/) 
 
+## Screenshots
+
+![Login UI](https://i.postimg.cc/Y0P38c9S/Screenshot-2024-06-01-at-7-32-11-PM.png)
+
+![HomePage](https://i.postimg.cc/L6qv5sCg/Screenshot-2024-06-01-at-7-33-10-PM.png)
+
+![Explore](https://i.postimg.cc/SxCrLvpy/Screenshot-2024-06-01-at-7-33-38-PM.png)
+
+![ProfilePage](https://i.postimg.cc/jdGc7rmg/Screenshot-2024-06-01-at-7-34-53-PM.png)
+
+![CreatePost](https://i.postimg.cc/T2NCTb9X/Screenshot-2024-06-01-at-7-34-18-PM.png)
+
 ## Work-Hive: A Project Worth Bragging About!
 
 Work-Hive is a remarkable project that caters to the specific needs of developers. It combines the power of social media with the technical prowess of React.js and TypeScript, creating a platform that fosters a vibrant developer community. With its clean architecture, robust tech stack, and exciting roadmap, Work-Hive is poised to make a significant impact in the developer landscape.
